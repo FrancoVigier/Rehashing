@@ -25,7 +25,7 @@ typedef struct {
 } TablaHash;
 
 /**
- * Crea una nueva tabla Hash vacía, con la capacidad dada.
+ * Crea una nueva tabla Hash vacÃ­a, con la capacidad dada.
  */
 TablaHash* tablahash_crear(unsigned capacidad, FuncionHash fun);
 
@@ -50,6 +50,9 @@ void tablahash_eliminar(TablaHash* tabla, void* clave);
  */
 void tablahash_destruir(TablaHash* tabla);
 
+/**
+ * Aplico rehash a la tabla y la redimensiono
+ */
 void tablahash_redimensionar(TablaHash * tabla);
 
 #endif /* __TABLAHASH_H__ */
