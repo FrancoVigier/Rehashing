@@ -29,7 +29,6 @@ void tablahash_insertar(TablaHash* tabla, void* clave, void* dato) {
   // Calculamos la posición de la clave dada, de acuerdo a la función hash.
   unsigned idx = tabla->hash(clave);
   idx = idx % tabla->capacidad;
-  printf("El indice de la clave es: %i\n", idx);
   // Si el lugar estaba vacío, incrementamos el número de elementos.
   if (tabla->tabla[idx].clave == NULL)
     tabla->numElems++;
@@ -47,7 +46,6 @@ void* tablahash_buscar(TablaHash* tabla, void* clave) {
   // Calculamos la posición de la clave dada, de acuerdo a la función hash.
   unsigned idx = tabla->hash(clave);
   idx = idx % tabla->capacidad;
-  printf("El indice de la clave es: %i\n", idx);
   // Si el lugar esta vacío, retornamos un puntero nulo.
   if (tabla->tabla[idx].clave != clave)
     return NULL;
@@ -79,16 +77,24 @@ void tablahash_destruir(TablaHash* tabla) {
   free(tabla->tabla);
   free(tabla);
 }
-
+/**
+ * Aplico rehash a la tabla y la redimensiono
+ */
 void tablahash_redimensionar(TablaHash * tabla) {
-  TablaHash* nuevaTabla = tablahash_crear(tabla->capacidad * 3, tabla->hash);
+//Creamos una tabla con la capacidad pedida y la f.hash usual
+  TablaHash* nTabla = tablahash_crear(tabla->capacidad * 3, tabla->hash);
+//Recorro toda posicion de la tabla vieja
   for (unsigned idi = 0; idi < tabla->capacidad; idi++) {
+//Si la casilla esta ocupada la rehasheo en la nueva tabla y la meto
     if (tabla->tabla[idi].clave != NULL) {
-      printf("%i %i\n",*((int *)tabla->tabla[idi].clave),*((int *)tabla->tabla[idi].dato));
-      tablahash_insertar(nuevaTabla, &(*((int *)tabla->tabla[idi].clave)), &(*((int *)tabla->tabla[idi].dato)));
+      CasillaHash cas = tabla->tabla[idi];
+      tablahash_insertar(nTabla, &(*((int *)cas.clave)), &(*((int *)cas.dato)));
     }
   }
-   free(tabla->tabla);
-  *tabla = *nuevaTabla;
-   free(nuevaTabla);
+//Libero la vieja estructura de casillas
+  free(tabla->tabla);
+//Cambio los apuntadores
+  *tabla = *nTabla;
+//Libero el puntero nuevo
+  free(nTabla);
 }
