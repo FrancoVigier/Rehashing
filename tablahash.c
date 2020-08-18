@@ -90,4 +90,5 @@ void tablahash_redimensionar(TablaHash * tabla) {
   }
    free(tabla->tabla);
   *tabla = *nuevaTabla;
+   free(nuevaTabla);
 }
