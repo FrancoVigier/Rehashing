@@ -8,7 +8,7 @@ unsigned hash(void* clave) {
 }
 
 int main(void) {
-  int x = 42, y = 42, z = 3, w = 4;
+  int x = 42, y = 42, z = 3, w = 4, a = 2, b = 10;
   TablaHash *th = tablahash_crear(3, hash);
 
   tablahash_insertar(th, &y, &z);
@@ -16,15 +16,15 @@ int main(void) {
 
   printf("z : %d\n", *((int *)tablahash_buscar(th, &y)));
   printf("x : %d\n", *((int *)tablahash_buscar(th, &w)));
-  printf("Tamaños de la vieja tabla %i\n", th->capacidad);
+  printf("TamaÃ±os de la vieja tabla %i\n", th->capacidad);
   tablahash_redimensionar(th);
-  printf("Tamaños de la nueva tabla %i\n", th->capacidad);
+  printf("TamaÃ±os de la nueva tabla %i\n", th->capacidad);
   printf("z : %d\n", *((int *)tablahash_buscar(th, &y)));
   printf("x : %d\n", *((int *)tablahash_buscar(th, &w)));
-  tablahash_insertar(th, &x, &z);
-  tablahash_insertar(th, &z, &z);
-  printf("z : %d\n", *((int *)tablahash_buscar(th, &x)));
-  printf("z : %d\n", *((int *)tablahash_buscar(th, &z)));
+  tablahash_insertar(th, &x, &a);
+  tablahash_insertar(th, &z, &b);
+  printf("a : %d\n", *((int *)tablahash_buscar(th, &x)));
+  printf("b : %d\n", *((int *)tablahash_buscar(th, &z)));
   tablahash_eliminar(th, &x);
   tablahash_destruir(th);
 
