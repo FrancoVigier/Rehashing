@@ -82,7 +82,7 @@ void tablahash_destruir(TablaHash* tabla) {
  */
 void tablahash_redimensionar(TablaHash * tabla) {
 //Creamos una tabla con la capacidad pedida y la f.hash usual
-  TablaHash* nTabla = tablahash_crear(tabla->capacidad * 3, tabla->hash);
+  TablaHash* nTabla = tablahash_crear(tabla->capacidad * 2, tabla->hash);
 //Recorro toda posicion de la tabla vieja
   for (unsigned idi = 0; idi < tabla->capacidad; idi++) {
 //Si la casilla esta ocupada la rehasheo en la nueva tabla y la meto
