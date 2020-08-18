@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 /**
- * Crea una nueva tabla Hash vac韆, con la capacidad dada.
+ * Crea una nueva tabla Hash vac铆a, con la capacidad dada.
  */
 TablaHash* tablahash_crear(unsigned capacidad, FuncionHash hash) {
   // Pedimos memoria para la estructura principal y las casillas.
@@ -26,11 +26,11 @@ TablaHash* tablahash_crear(unsigned capacidad, FuncionHash hash) {
  * Inserta el dato en la tabla, asociado a la clave dada.
  */
 void tablahash_insertar(TablaHash* tabla, void* clave, void* dato) {
-  // Calculamos la posici髇 de la clave dada, de acuerdo a la funci髇 hash.
+  // Calculamos la posici贸n de la clave dada, de acuerdo a la funci贸n hash.
   unsigned idx = tabla->hash(clave);
   idx = idx % tabla->capacidad;
   printf("El indice de la clave es: %i\n", idx);
-  // Si el lugar estaba vac韔, incrementamos el n鷐ero de elementos.
+  // Si el lugar estaba vac铆o, incrementamos el n煤mero de elementos.
   if (tabla->tabla[idx].clave == NULL)
     tabla->numElems++;
 
@@ -44,11 +44,11 @@ void tablahash_insertar(TablaHash* tabla, void* clave, void* dato) {
  * En caso de no existir, se retorna un puntero nulo.
  */
 void* tablahash_buscar(TablaHash* tabla, void* clave) {
-  // Calculamos la posici髇 de la clave dada, de acuerdo a la funci髇 hash.
+  // Calculamos la posici贸n de la clave dada, de acuerdo a la funci贸n hash.
   unsigned idx = tabla->hash(clave);
   idx = idx % tabla->capacidad;
   printf("El indice de la clave es: %i\n", idx);
-  // Si el lugar esta vac韔, retornamos un puntero nulo.
+  // Si el lugar esta vac铆o, retornamos un puntero nulo.
   if (tabla->tabla[idx].clave != clave)
     return NULL;
 
@@ -59,11 +59,11 @@ void* tablahash_buscar(TablaHash* tabla, void* clave) {
  * Elimina un elemento de la tabla.
  */
 void tablahash_eliminar(TablaHash* tabla, void* clave) {
-  // Calculamos la posici髇 de la clave dada, de acuerdo a la funci髇 hash.
+  // Calculamos la posici贸n de la clave dada, de acuerdo a la funci贸n hash.
   unsigned idx = tabla->hash(clave);
   idx = idx % tabla->capacidad;
 
-  // Si el lugar estaba ocupado, decrementamos el n鷐ero de elementos.
+  // Si el lugar estaba ocupado, decrementamos el n煤mero de elementos.
   if (tabla->tabla[idx].clave != NULL)
     tabla->numElems--;
 
@@ -82,7 +82,7 @@ void tablahash_destruir(TablaHash* tabla) {
 
 void tablahash_redimensionar(TablaHash * tabla) {
   TablaHash* nuevaTabla = tablahash_crear(tabla->capacidad * 3, tabla->hash);
-  for (int idi = 0; idi < tabla->capacidad; idi++) {
+  for (unsigned idi = 0; idi < tabla->capacidad; idi++) {
     if (tabla->tabla[idi].clave != NULL) {
       printf("%i %i\n",*((int *)tabla->tabla[idi].clave),*((int *)tabla->tabla[idi].dato));
       tablahash_insertar(nuevaTabla, &(*((int *)tabla->tabla[idi].clave)), &(*((int *)tabla->tabla[idi].dato)));
