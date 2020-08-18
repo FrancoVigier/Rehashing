@@ -81,20 +81,20 @@ void tablahash_destruir(TablaHash* tabla) {
  * Aplico rehash a la tabla y la redimensiono
  */
 void tablahash_redimensionar(TablaHash * tabla) {
-//Creamos una tabla con la capacidad pedida y la f.hash usual
+  //Creamos una tabla con la capacidad pedida y la f.hash usual
   TablaHash* nTabla = tablahash_crear(tabla->capacidad * 2, tabla->hash);
-//Recorro toda posicion de la tabla vieja
+  //Recorro toda posicion de la tabla vieja
   for (unsigned idi = 0; idi < tabla->capacidad; idi++) {
-//Si la casilla esta ocupada la rehasheo en la nueva tabla y la meto
+  //Si la casilla esta ocupada la rehasheo en la nueva tabla y la meto
     if (tabla->tabla[idi].clave != NULL) {
       CasillaHash cas = tabla->tabla[idi];
       tablahash_insertar(nTabla, &(*((int *)cas.clave)), &(*((int *)cas.dato)));
     }
   }
-//Libero la vieja estructura de casillas
+  //Libero la vieja estructura de casillas
   free(tabla->tabla);
-//Cambio los apuntadores
+  //Cambio los apuntadores
   *tabla = *nTabla;
-//Libero el puntero nuevo
+  //Libero el puntero nuevo
   free(nTabla);
 }
